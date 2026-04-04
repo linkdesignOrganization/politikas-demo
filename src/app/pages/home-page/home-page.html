@@ -1,0 +1,443 @@
+<main class="home-page">
+  <section class="hero-section">
+    <div class="hero-grid">
+      <div class="hero-copy-wrap">
+        <div class="hero-copy">
+          <h1 class="hero-title">
+            Creativity That Drives <span class="font-playfair">Growth.</span>
+          </h1>
+
+          <div class="hero-text">
+            <p class="text-default">
+              Creativity paired with strategy to build stronger brands, deeper connections, and
+              sustainable long-term growth.
+            </p>
+          </div>
+
+          <a class="primary-button" href="#" aria-label="Get Template">
+            <span class="primary-button-text-wrap">
+              <span class="primary-button-text">Get Template</span>
+              <span class="primary-button-text">Get Template</span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-video-wrap">
+        <div class="hero-video-shell">
+          <video
+            #heroVideo
+            class="hero-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="/cepta/hero/hero-video-poster.jpg"
+          >
+            <source src="/cepta/hero/hero-video.mp4" type="video/mp4" />
+            <source src="/cepta/hero/hero-video.webm" type="video/webm" />
+          </video>
+
+          <button
+            class="play-pause-button"
+            type="button"
+            (click)="toggleVideo()"
+            [attr.aria-pressed]="isVideoPaused()"
+            [attr.aria-label]="isVideoPaused() ? 'Play video' : 'Pause video'"
+          >
+            <img
+              [src]="isVideoPaused() ? '/cepta/hero/play-button.svg' : '/cepta/hero/pause-button.svg'"
+              [alt]="isVideoPaused() ? 'Play video' : 'Pause video'"
+              width="45"
+              height="45"
+            />
+          </button>
+
+          <div class="hero-video-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="latest-section">
+    <div class="latest-shell">
+      <div class="latest-stage">
+        <div class="latest-rule"></div>
+        <h2 class="latest-heading">(Categorías)</h2>
+
+        <div class="latest-cards">
+          @for (item of approachItems; track item.title) {
+            <article class="latest-card">
+              <div class="latest-card-media" [class.is-mobile-wide]="item.mobileWide">
+                @if (item.mediaType === 'video') {
+                  <video
+                    #approachVideo
+                    class="latest-card-video"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    [poster]="item.poster"
+                  >
+                    <source [src]="item.videoMp4" type="video/mp4" />
+                    <source [src]="item.videoWebm" type="video/webm" />
+                  </video>
+
+                  <button
+                    class="latest-video-toggle"
+                    type="button"
+                    (click)="toggleApproachVideo()"
+                    [attr.aria-pressed]="isApproachVideoPaused()"
+                    [attr.aria-label]="isApproachVideoPaused() ? 'Play video' : 'Pause video'"
+                  >
+                    <img
+                      [src]="
+                        isApproachVideoPaused()
+                          ? '/nordic/approach/play.svg'
+                          : '/nordic/approach/pause.svg'
+                      "
+                      [alt]="isApproachVideoPaused() ? 'Play video' : 'Pause video'"
+                    />
+                  </button>
+                } @else {
+                  <img class="latest-card-image" [src]="item.imageSrc" [alt]="item.alt" loading="lazy" />
+                }
+              </div>
+
+              <div class="latest-card-body">
+                <div class="latest-card-title">
+                  <span class="latest-card-number">{{ item.number }}</span>
+                  <h3>{{ item.title }}</h3>
+                </div>
+                <p>{{ item.description }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-section">
+    <div class="quote-shell">
+      <div class="testimonial-component">
+        <div class="testimonial-image-wrap">
+          <img
+            class="testimonial-image"
+            src="/150.jpg"
+            alt="Woman in white shirt and dark sweater reading a document at a white desk with glasses and a pink pen nearby."
+            loading="lazy"
+          />
+
+          <div class="universal-badge testimonial-image-badge">Konrad Adenauer (1876-1967)</div>
+        </div>
+
+        <div class="testimonial-content">
+          <div class="testimonial-content-inner">
+            <blockquote class="testimonial-blockquote">
+              “Para nosotros la persona está en el centro de atención con su dignidad
+              inconfundible, sus derechos y obligaciones. La persona forma el punto de partida
+              para la justicia social, la democracia en libertad y una economía sostenible.”
+            </blockquote>
+
+            <div class="testimonial-author-infos">
+              <a
+                class="testimonial-author-logo-wrap"
+                href="https://www.kas.de/es/home"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Abrir sitio de la Fundación Konrad Adenauer"
+              >
+                <img
+                  class="testimonial-author-logo"
+                  src="/logo_de_konrad.svg"
+                  alt="Logo de Konrad"
+                  loading="lazy"
+                />
+              </a>
+
+              <div class="testimonial-author-wrap">
+                <div class="testimonial-author">Fundación Konrad Adenauer</div>
+                <div class="testimonial-title">
+                  150 años de compromiso con la libertad, la justicia y la solidaridad.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="video-section">
+    <div class="video-shell">
+      <div class="latest-rule"></div>
+
+      <div class="video-header">
+        <h2 class="latest-heading">(Video)</h2>
+        <a class="universal-button" href="#">
+          <span>Ver video</span>
+          <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="video-grid">
+        @for (item of videoItems; track item.title) {
+          <article
+            class="video-card"
+            [class.is-featured]="item.featured"
+          >
+            <div class="video-card-media">
+              <img class="video-card-thumbnail" [src]="item.thumbnail" [alt]="item.title" loading="lazy" />
+
+              <iframe
+                class="video-card-embed"
+                [src]="item.embedUrl"
+                [title]="item.title"
+                loading="lazy"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                referrerpolicy="strict-origin-when-cross-origin"
+              ></iframe>
+
+              <div class="video-card-tint"></div>
+
+              <div class="video-card-badge universal-badge">{{ item.badge }}</div>
+
+              <div class="video-card-play" aria-hidden="true">
+                <i class="bi bi-play-circle video-card-play-icon"></i>
+              </div>
+
+              <div class="video-card-content universal-badge">
+                <p class="video-card-date">{{ item.date }}</p>
+                <h3 class="video-card-title">{{ item.title }}</h3>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="articles-section">
+    <div class="articles-shell">
+      <div class="latest-rule"></div>
+
+      <div class="articles-header">
+        <h2 class="latest-heading">(Artículos)</h2>
+        <a class="universal-button" href="#">
+          <span>Ver artículos</span>
+          <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="articles-list">
+        @for (item of articleItems; track item.title) {
+          <article class="article-card">
+            <div class="article-card-content">
+              <div class="article-card-head">
+                <div class="article-card-image-wrap">
+                  <img class="article-card-image" [src]="item.imageSrc" [alt]="item.imageAlt" loading="lazy" />
+                  <div class="article-card-tag">
+                    <div class="article-card-tag-text">{{ item.category }}</div>
+                  </div>
+                  <div class="article-card-gradient"></div>
+                </div>
+
+                <div class="article-card-infos">
+                  <div class="article-card-date">{{ item.date }}</div>
+                  <h3 class="article-card-title">{{ item.title }}</h3>
+                </div>
+              </div>
+
+              <div class="article-card-line"></div>
+
+              @if (item.description) {
+                <p class="article-card-description">{{ truncateText(item.description) }}</p>
+              }
+
+              @if (item.author) {
+                <p class="article-card-author">{{ item.author }}</p>
+              }
+
+              <div class="article-card-read-bottom">
+                <div class="article-card-read-link">{{ item.cta }}</div>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="podcast-section">
+    <div class="podcast-shell">
+      <div class="latest-rule"></div>
+
+      <div class="podcast-header">
+        <h2 class="latest-heading">(Podcast)</h2>
+        <a class="universal-button" href="#">
+          <span>Ver podcast</span>
+          <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="podcast-list">
+        @for (item of podcastEpisodes; track item.episode) {
+          <article class="podcast-card">
+            <div class="podcast-card-content">
+              <div class="podcast-card-top">
+                <div class="podcast-episode-wrap">
+                  <i class="bi bi-mic-fill podcast-title-icon" aria-hidden="true"></i>
+                  <div class="podcast-episode">{{ item.episode }}</div>
+                </div>
+              </div>
+
+              <h3 class="podcast-card-title">{{ item.title }}</h3>
+            </div>
+
+            <div class="podcast-audio-stack">
+              <button
+                class="podcast-audio-indicator"
+                type="button"
+                (click)="togglePodcastPreview(item)"
+                [attr.aria-label]="'Previsualizar reproducción de ' + item.title"
+              >
+                <i class="bi bi-play-circle-fill podcast-audio-icon"></i>
+              </button>
+
+              <div class="podcast-audio-detail" aria-hidden="true">
+                <span class="podcast-audio-start">0 min</span>
+                <span class="podcast-audio-line"></span>
+                <span class="podcast-audio-duration">{{ item.duration }}</span>
+              </div>
+            </div>
+
+            <div class="podcast-card-meta">
+              <div class="universal-badge podcast-season-badge">{{ item.season }}</div>
+              <div class="podcast-card-date">{{ item.date }}</div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="services-section">
+    <div class="services-shell">
+      <div class="services-bg-wrapper" aria-hidden="true">
+        <div class="services-bg-image-wrap is-active">
+          <img
+            class="services-image"
+            [src]="serviceItems[0].imageSrc"
+            [alt]="serviceItems[0].imageAlt"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="services-content">
+        <div class="services-head">
+          <div class="services-kicker">NUESTROS EJES</div>
+          <h2 class="services-title">Tres pilares que fortalecen la democracia en la región</h2>
+        </div>
+
+        <div class="services-layout">
+          <div class="services-block">
+            <div class="services-marquee-wrap" #servicesMarqueeViewport aria-hidden="true">
+              <div
+                class="services-marquee-track"
+                [style.transform]="'translate3d(0, -' + serviceMarqueeTranslateY() + 'px, 0)'"
+              >
+                @for (item of renderedServiceItems; track item.loopKey) {
+                  <div
+                    class="services-item"
+                    [class.is-active]="activeRenderedServiceIndex() === item.renderedIndex"
+                  >
+                    {{ item.title }}
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <a
+            class="universal-button services-button"
+            href="https://politikasenlinea.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span>Sobre Nosotros</span>
+            <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="podcast-player-shell" [class.is-visible]="activePodcastEpisode()">
+    @if (activePodcastEpisode(); as activeEpisode) {
+      <div class="podcast-player-panel">
+        <button
+          class="podcast-player-close"
+          type="button"
+          (click)="$event.stopPropagation(); closePodcastPreview()"
+          aria-label="Cerrar reproductor"
+        >
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+
+        <div class="podcast-player-copy">
+          <div class="podcast-player-kicker">
+            <span class="podcast-player-badge">{{ activeEpisode.season }}</span>
+            <span class="podcast-player-episode">{{ activeEpisode.episode }}</span>
+          </div>
+          <p class="podcast-player-status">Reproduciendo ahora</p>
+          <h3 class="podcast-player-title">{{ activeEpisode.title }}</h3>
+        </div>
+
+        <div class="podcast-player-visual" aria-hidden="true">
+          <div class="podcast-player-bars">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="podcast-player-time">{{ activeEpisode.duration }}</div>
+        </div>
+
+        <div class="podcast-player-progress">
+          <div class="podcast-player-progress-time">
+            {{ formatPodcastCurrentTime(podcastPlaybackPosition()) }}
+          </div>
+
+          <input
+            class="podcast-player-slider"
+            type="range"
+            min="0"
+            [max]="getPodcastDurationSeconds(activeEpisode.duration)"
+            [value]="podcastPlaybackPosition()"
+            (input)="updatePodcastProgress($event)"
+            [style.--progress]="getPodcastProgressPercent(activeEpisode.duration) + '%'"
+            aria-label="Línea de tiempo del episodio"
+          />
+
+          <button
+            class="podcast-player-toggle"
+            type="button"
+            (click)="togglePodcastPlayback()"
+            [attr.aria-label]="isPodcastPlaying() ? 'Pausar reproducción' : 'Reanudar reproducción'"
+          >
+            <i
+              class="bi"
+              [class.bi-pause-fill]="isPodcastPlaying()"
+              [class.bi-play-fill]="!isPodcastPlaying()"
+              aria-hidden="true"
+            ></i>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</main>
