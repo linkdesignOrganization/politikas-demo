@@ -1,0 +1,160 @@
+<nav class="nordic-nav" [class.is-open]="isMenuOpen()">
+  <div class="nordic-nav__bar">
+    <div class="nordic-nav__content">
+      <div class="nordic-nav__links">
+        <button
+          class="nordic-nav__toggle"
+          type="button"
+          (click)="toggleMenu()"
+          [attr.aria-expanded]="isMenuOpen()"
+          aria-controls="nordic-nav-menu"
+          aria-label="Open navigation menu"
+        >
+          <span class="nordic-nav__hamburger" [class.is-open]="isMenuOpen()">
+            <span class="nordic-nav__hamburger-line"></span>
+            <span class="nordic-nav__hamburger-line"></span>
+          </span>
+        </button>
+
+        <div class="nordic-nav__links-wrap">
+          @for (link of navLinks; track link.label) {
+            <a
+              class="nordic-nav__link"
+              [href]="link.path"
+              (click)="handleInternalNavigation($event)"
+            >
+              <span class="nordic-nav__link-texts">
+                <span class="nordic-nav__link-text">{{ link.label }}</span>
+                <span class="nordic-nav__link-text">{{ link.label }}</span>
+              </span>
+              @if (link.pageCount) {
+                <span class="nordic-nav__page-number">{{ link.pageCount }}</span>
+              }
+              <span class="nordic-nav__dot"></span>
+            </a>
+          }
+        </div>
+      </div>
+
+      <a class="nordic-nav__logo" href="/" (click)="handleInternalNavigation($event)" aria-label="PolitiKAS home">
+        <img src="/logo-color.svg" alt="PolitiKAS logo" />
+      </a>
+
+      <div class="nordic-nav__contact">
+        <a class="nordic-nav__brand-mark" href="/" (click)="handleInternalNavigation($event)" aria-label="Konrad Adenauer">
+          <img src="/logo_de_konrad.svg" alt="Fundación Konrad Adenauer" />
+        </a>
+
+        <a
+          class="nordic-nav__cta demo-popover nav-popover"
+          data-popover="No disponible en la demo"
+          href="/contact/2"
+          (click)="handleInternalNavigation($event)"
+        >
+          <span class="nordic-nav__cta-texts">
+            <span class="nordic-nav__cta-text">Contacto</span>
+            <span class="nordic-nav__cta-text">Contacto</span>
+          </span>
+          <i class="bi bi-arrow-right-short nordic-nav__cta-arrow" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nordic-nav__overlay" [class.is-open]="isMenuOpen()">
+    <button class="nordic-nav__backdrop" type="button" (click)="closeMenu()" aria-label="Close menu"></button>
+
+    <div class="nordic-nav__menu" id="nordic-nav-menu" [class.is-open]="isMenuOpen()">
+      <div class="nordic-nav__menu-items">
+        <div class="nordic-nav__menu-links">
+          <a class="nordic-nav__menu-logo" href="/" (click)="handleInternalNavigation($event)">
+            <img src="/logo-color.svg" alt="PolitiKAS logo" />
+          </a>
+
+          <div class="nordic-nav__menu-col nordic-nav__menu-col--links">
+            <div class="nordic-nav__menu-links-wrap">
+              @for (link of navLinks; track 'menu-' + link.label) {
+                <a class="nordic-nav__menu-link" [href]="link.path" (click)="handleInternalNavigation($event)">
+                  <span class="nordic-nav__menu-link-texts">
+                    <span class="nordic-nav__menu-link-text">{{ link.label }}</span>
+                    <span class="nordic-nav__menu-link-text">{{ link.label }}</span>
+                  </span>
+                  <span class="nordic-nav__menu-link-dot"></span>
+                </a>
+              }
+            </div>
+
+            <div class="nordic-nav__menu-legal">
+              <div class="nordic-nav__menu-social">
+                @for (social of socialLinks; track social.label) {
+                  <a class="nordic-nav__social-link" [href]="social.href" target="_blank" rel="noreferrer">
+                    <i [class]="social.iconClass" [attr.aria-label]="social.label"></i>
+                  </a>
+                }
+              </div>
+
+              <div class="nordic-nav__legal-links">
+                <a class="nordic-nav__legal-link" href="/legal/terms-of-use" (click)="handleInternalNavigation($event)">Terms of use</a>
+                <a class="nordic-nav__legal-link" href="/legal/privacy-policy" (click)="handleInternalNavigation($event)">Privacy policy</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nordic-nav__menu-col nordic-nav__menu-col--cases">
+          <div class="nordic-nav__menu-label">Categorías</div>
+          <div class="nordic-nav__cases">
+            @for (item of menuCategories; track item.title) {
+              <a class="nordic-nav__case" [href]="item.href" (click)="handleInternalNavigation($event)">
+                <div class="nordic-nav__case-image-wrap">
+                  <img class="nordic-nav__case-image" [src]="item.imageSrc" [alt]="item.title" loading="lazy" />
+                </div>
+                <div class="nordic-nav__case-infos">
+                  <div class="nordic-nav__case-name">{{ item.title }}</div>
+                  <div class="nordic-nav__case-desc">{{ item.description }}</div>
+                </div>
+              </a>
+            }
+          </div>
+        </div>
+
+        <div class="nordic-nav__menu-col nordic-nav__menu-col--content">
+          <div class="nordic-nav__menu-label">Campus KAS</div>
+          <div class="nordic-nav__campus-card">
+            <h3 class="nordic-nav__campus-title">CampusKAS</h3>
+            <p class="nordic-nav__campus-text">
+              Formación en democracia, liderazgo y política pública. Cursos virtuales de la Fundación Konrad Adenauer.
+            </p>
+            <a class="nordic-nav__campus-link" href="#campus" (click)="handleInternalNavigation($event)">
+              <span>Visitá el Campus</span>
+              <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="nordic-nav__menu-topics">
+          <div class="nordic-nav__menu-label">Temas</div>
+
+          <div class="nordic-nav__topics-groups">
+            @for (group of menuTopicGroups; track group.title) {
+              <section class="nordic-nav__topics-group">
+                <h3 class="nordic-nav__topics-title">{{ group.title }}</h3>
+                <div class="nordic-nav__topics-tags">
+                  @for (tag of group.tags; track tag) {
+                    <span class="nordic-nav__topic-tag">{{ tag }}</span>
+                  }
+                </div>
+              </section>
+            }
+          </div>
+        </div>
+
+        <div class="nordic-nav__menu-divider"></div>
+
+        <button class="nordic-nav__close" type="button" (click)="closeMenu()" aria-label="Close menu">
+          <img src="/nordic/nav/close.svg" alt="close icon" />
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

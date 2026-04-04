@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, DestroyRef, ElementRef, ViewChild, inject, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  ElementRef,
+  ViewChild,
+  inject,
+  signal
+} from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 type ApproachItem = {
@@ -56,6 +64,17 @@ type RenderedServiceItem = {
   renderedIndex: number;
 };
 
+type SocialLink = {
+  label: string;
+  href: string;
+  iconClass: string;
+};
+
+type FooterLink = {
+  label: string;
+  href: string;
+};
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.html',
@@ -77,16 +96,12 @@ export class HomePageComponent implements AfterViewInit {
   private serviceBaseOffsetPx = 0;
   private serviceResizeObserver: ResizeObserver | null = null;
 
-  @ViewChild('heroVideo')
-  protected heroVideo?: ElementRef<HTMLVideoElement>;
-
   @ViewChild('approachVideo')
   protected approachVideo?: ElementRef<HTMLVideoElement>;
 
   @ViewChild('servicesMarqueeViewport')
   protected servicesMarqueeViewport?: ElementRef<HTMLDivElement>;
 
-  protected readonly isVideoPaused = signal(false);
   protected readonly isApproachVideoPaused = signal(false);
   protected readonly activePodcastEpisode = signal<PodcastEpisode | null>(null);
   protected readonly podcastPlaybackPosition = signal(0);
@@ -94,26 +109,53 @@ export class HomePageComponent implements AfterViewInit {
   protected readonly activeRenderedServiceIndex = signal(0);
   protected readonly serviceMarqueeTranslateY = signal(0);
 
+  protected readonly heroSocialLinks: SocialLink[] = [
+    { label: 'Instagram', href: 'https://instagram.com/kas_crpa', iconClass: 'bi bi-instagram' },
+    { label: 'Facebook', href: 'https://facebook.com/kascostaricapanama', iconClass: 'bi bi-facebook' },
+    { label: 'X', href: 'https://x.com/kas_crpa', iconClass: 'bi bi-twitter-x' },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/kas-costarica', iconClass: 'bi bi-linkedin' },
+    { label: 'YouTube', href: 'https://youtube.com/channel/UCtml2Y6atm9OJ9M-AoeSRrA', iconClass: 'bi bi-youtube' }
+  ];
+
+  protected readonly footerSocialLinks = this.heroSocialLinks;
+
+  protected readonly footerPrimaryLinks: FooterLink[] = [
+    { label: 'Podcast', href: '#podcast' },
+    { label: 'Videos', href: '#videos' },
+    { label: 'Artículos', href: '#articulos' }
+  ];
+
+  protected readonly footerTopicLinks: FooterLink[] = [
+    { label: 'Representación', href: '#temas' },
+    { label: 'Participación', href: '#temas' },
+    { label: 'Innovación', href: '#temas' },
+    { label: 'Seguridad', href: '#temas' }
+  ];
+
+  protected readonly footerInstitutionalLinks: FooterLink[] = [
+    { label: 'Sobre nosotros', href: '#nosotros' },
+    { label: 'Campus KAS', href: '#campus' },
+    { label: 'Contáctenos', href: '#contacto' }
+  ];
+
   protected readonly approachItems: ApproachItem[] = [
     {
       number: '01',
-      title: 'Podcast',
-      description:
-        'Conversaciones y análisis para profundizar en democracia, representación y los retos del presente con voces expertas.',
-      mediaType: 'video',
-      alt: 'Dragonfly close-up video',
-      poster: '/nordic/approach/research-poster.jpg',
-      videoMp4: '/nordic/approach/research-video.mp4',
-      videoWebm: '/nordic/approach/research-video.webm'
-    },
-    {
-      number: '02',
       title: 'Videos',
       description:
         'Una selección audiovisual para comunicar ideas complejas con claridad, contexto y una narrativa más accesible.',
       mediaType: 'image',
-      alt: 'Woman in motion art',
-      imageSrc: '/nordic/approach/exploration.webp'
+      alt: 'Videos category cover',
+      imageSrc: '/video.png'
+    },
+    {
+      number: '02',
+      title: 'Podcast',
+      description:
+        'Conversaciones y análisis para profundizar en democracia, representación y los retos del presente con voces expertas.',
+      alt: 'Podcast category cover',
+      imageSrc: '/poscast',
+      mediaType: 'image'
     },
     {
       number: '03',
@@ -121,8 +163,8 @@ export class HomePageComponent implements AfterViewInit {
       description:
         'Textos, análisis y publicaciones para profundizar en temas estratégicos con una lectura más editorial y reflexiva.',
       mediaType: 'image',
-      alt: 'Red sports car in motion',
-      imageSrc: '/nordic/approach/implementation.webp',
+      alt: 'Articles category cover',
+      imageSrc: '/article',
       mobileWide: true
     }
   ];
@@ -170,6 +212,8 @@ export class HomePageComponent implements AfterViewInit {
       )
     }
   ];
+
+  protected readonly heroFeaturedVideo = this.videoItems[1];
 
   protected readonly articleItems: ArticleItem[] = [
     {
@@ -316,23 +360,6 @@ export class HomePageComponent implements AfterViewInit {
     this.measureServiceMarquee();
     this.startServiceLoop();
     this.startServiceResizeObserver();
-  }
-
-  protected toggleVideo(): void {
-    const video = this.heroVideo?.nativeElement;
-
-    if (!video) {
-      return;
-    }
-
-    if (video.paused) {
-      void video.play();
-      this.isVideoPaused.set(false);
-      return;
-    }
-
-    video.pause();
-    this.isVideoPaused.set(true);
   }
 
   protected toggleApproachVideo(): void {

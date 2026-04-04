@@ -3,68 +3,94 @@
     <div class="hero-grid">
       <div class="hero-copy-wrap">
         <div class="hero-copy">
+          <div class="universal-badge podcast-season-badge hero-season-badge">Temporada 3</div>
+
           <h1 class="hero-title">
-            Creativity That Drives <span class="font-playfair">Growth.</span>
+            <span>Análisis que impulsa</span>
+            <span class="font-playfair">la democracia.</span>
           </h1>
 
           <div class="hero-text">
             <p class="text-default">
-              Creativity paired with strategy to build stronger brands, deeper connections, and
-              sustainable long-term growth.
+              Nuevos episodios sobre elecciones, seguridad, migración y el futuro de Centroamérica.
+              Podcast, video y análisis en un solo lugar.
             </p>
           </div>
 
-          <a class="primary-button" href="#" aria-label="Get Template">
-            <span class="primary-button-text-wrap">
-              <span class="primary-button-text">Get Template</span>
-              <span class="primary-button-text">Get Template</span>
-            </span>
+          <a
+            class="universal-button demo-popover"
+            data-popover="No disponible en la demo"
+            href="#formatos"
+            aria-label="Explorar temporada"
+          >
+            <span>Explorar temporada</span>
+            <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
           </a>
+
+          <div class="hero-socials" aria-label="Redes sociales">
+            @for (social of heroSocialLinks; track social.label) {
+              <a class="hero-social-link" [href]="social.href" target="_blank" rel="noreferrer" [attr.aria-label]="social.label">
+                <i [class]="social.iconClass" aria-hidden="true"></i>
+              </a>
+            }
+          </div>
         </div>
       </div>
 
-      <div class="hero-video-wrap">
-        <div class="hero-video-shell">
-          <video
-            #heroVideo
-            class="hero-video"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            poster="/cepta/hero/hero-video-poster.jpg"
-          >
-            <source src="/cepta/hero/hero-video.mp4" type="video/mp4" />
-            <source src="/cepta/hero/hero-video.webm" type="video/webm" />
-          </video>
-
+      <div class="hero-featured-wrap">
+        <article class="video-card hero-video-card">
           <button
-            class="play-pause-button"
+            class="hero-video-play-trigger demo-popover"
             type="button"
-            (click)="toggleVideo()"
-            [attr.aria-pressed]="isVideoPaused()"
-            [attr.aria-label]="isVideoPaused() ? 'Play video' : 'Pause video'"
+            data-popover="No disponible en la demo"
+            aria-label="No disponible en la demo"
           >
-            <img
-              [src]="isVideoPaused() ? '/cepta/hero/play-button.svg' : '/cepta/hero/pause-button.svg'"
-              [alt]="isVideoPaused() ? 'Play video' : 'Pause video'"
-              width="45"
-              height="45"
-            />
+            <span class="video-card-play">
+              <i class="bi bi-play-circle video-card-play-icon" aria-hidden="true"></i>
+            </span>
           </button>
 
-          <div class="hero-video-overlay"></div>
-        </div>
+          <div class="video-card-media hero-video-card-media">
+            <iframe
+              class="video-card-embed"
+              [src]="heroFeaturedVideo.embedUrl"
+              [title]="heroFeaturedVideo.title"
+              loading="lazy"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+
+            <div class="video-card-tint"></div>
+
+            <div class="video-card-badge universal-badge">{{ heroFeaturedVideo.badge }}</div>
+
+            <div class="video-card-content universal-badge">
+              <p class="video-card-date">{{ heroFeaturedVideo.date }}</p>
+              <h2 class="video-card-title">{{ heroFeaturedVideo.title }}</h2>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="latest-section">
-    <div class="latest-shell">
-      <div class="latest-stage">
-        <div class="latest-rule"></div>
-        <h2 class="latest-heading">(Categorías)</h2>
+  <section class="latest-section" id="formatos">
+    <div class="latest-shell section-shell">
+      <div class="latest-rule section-rule"></div>
+
+      <div class="latest-stage section-stack">
+        <h2 class="latest-heading">
+          <span class="section-heading-paren">(</span>
+          <span class="latest-heading-label">
+            <span class="latest-heading-icons" aria-hidden="true">
+              <i class="bi bi-mic-fill latest-heading-icon"></i>
+              <i class="bi bi-play-circle-fill latest-heading-icon"></i>
+              <i class="bi bi-file-earmark-text-fill latest-heading-icon"></i>
+            </span>
+            Formatos
+          </span>
+          <span class="section-heading-paren">)</span>
+        </h2>
 
         <div class="latest-cards">
           @for (item of approachItems; track item.title) {
@@ -120,48 +146,303 @@
     </div>
   </section>
 
-  <section class="quote-section">
-    <div class="quote-shell">
-      <div class="testimonial-component">
-        <div class="testimonial-image-wrap">
-          <img
-            class="testimonial-image"
-            src="/150.jpg"
-            alt="Woman in white shirt and dark sweater reading a document at a white desk with glasses and a pink pen nearby."
-            loading="lazy"
-          />
+  <section class="services-section" id="temas">
+    <div class="services-divider-shell section-shell">
+      <div class="section-rule"></div>
+    </div>
 
-          <div class="universal-badge testimonial-image-badge">Konrad Adenauer (1876-1967)</div>
+    <div class="services-stage">
+      <div class="services-shell">
+        <div class="services-bg-wrapper" aria-hidden="true">
+          <div class="services-bg-image-wrap is-active">
+            <img
+              class="services-image"
+              [src]="serviceItems[0].imageSrc"
+              [alt]="serviceItems[0].imageAlt"
+              loading="lazy"
+            />
+          </div>
         </div>
 
-        <div class="testimonial-content">
-          <div class="testimonial-content-inner">
-            <blockquote class="testimonial-blockquote">
-              “Para nosotros la persona está en el centro de atención con su dignidad
-              inconfundible, sus derechos y obligaciones. La persona forma el punto de partida
-              para la justicia social, la democracia en libertad y una economía sostenible.”
-            </blockquote>
+        <div class="services-content">
+          <div class="services-head">
+            <img
+              class="services-logo"
+              src="/logo-color.svg"
+              alt="Logo de PolitiKAS"
+              loading="lazy"
+            />
+            <h2 class="services-title">Más de <strong>40 años</strong> fortaleciendo la democracia regional</h2>
+          </div>
 
-            <div class="testimonial-author-infos">
-              <a
-                class="testimonial-author-logo-wrap"
-                href="https://www.kas.de/es/home"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Abrir sitio de la Fundación Konrad Adenauer"
+          <div class="services-layout">
+            <div class="services-block">
+              <div class="services-marquee-wrap" #servicesMarqueeViewport aria-hidden="true">
+                <div
+                  class="services-marquee-track"
+                  [style.transform]="'translate3d(0, -' + serviceMarqueeTranslateY() + 'px, 0)'"
+                >
+                  @for (item of renderedServiceItems; track item.loopKey) {
+                    <div
+                      class="services-item"
+                      [class.is-active]="activeRenderedServiceIndex() === item.renderedIndex"
+                    >
+                      {{ item.title }}
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <a
+              class="universal-button services-button demo-popover"
+              data-popover="No disponible en la demo"
+              href="https://politikasenlinea.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>Sobre Nosotros</span>
+              <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="video-section" id="videos">
+    <div class="video-shell section-shell">
+      <div class="latest-rule section-rule"></div>
+
+      <div class="section-stack">
+        <div class="video-header">
+          <h2 class="latest-heading">
+            <span class="section-heading-paren">(</span>
+            <span class="latest-heading-label">
+              <i class="bi bi-play-circle-fill latest-heading-icon" aria-hidden="true"></i>
+              Videos
+            </span>
+            <span class="section-heading-paren">)</span>
+          </h2>
+          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#">
+            <span>Ver video</span>
+            <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="video-grid">
+          @for (item of videoItems; track item.title) {
+            <article
+              class="video-card"
+              [class.is-featured]="item.featured"
+            >
+              <button
+                class="video-card-play-trigger demo-popover"
+                type="button"
+                data-popover="No disponible en la demo"
+                aria-label="No disponible en la demo"
               >
-                <img
-                  class="testimonial-author-logo"
-                  src="/logo_de_konrad.svg"
-                  alt="Logo de Konrad"
-                  loading="lazy"
-                />
-              </a>
+                <span class="video-card-play">
+                  <i class="bi bi-play-circle video-card-play-icon" aria-hidden="true"></i>
+                </span>
+              </button>
 
-              <div class="testimonial-author-wrap">
-                <div class="testimonial-author">Fundación Konrad Adenauer</div>
-                <div class="testimonial-title">
-                  150 años de compromiso con la libertad, la justicia y la solidaridad.
+              <div class="video-card-media">
+                <img class="video-card-thumbnail" [src]="item.thumbnail" [alt]="item.title" loading="lazy" />
+
+                <iframe
+                  class="video-card-embed"
+                  [src]="item.embedUrl"
+                  [title]="item.title"
+                  loading="lazy"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                ></iframe>
+
+                <div class="video-card-tint"></div>
+
+                <div class="video-card-badge universal-badge">{{ item.badge }}</div>
+
+                <div class="video-card-content universal-badge">
+                  <p class="video-card-date">{{ item.date }}</p>
+                  <h3 class="video-card-title">{{ item.title }}</h3>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="podcast-section" id="podcast">
+    <div class="podcast-shell section-shell">
+      <div class="latest-rule section-rule"></div>
+
+      <div class="section-stack">
+        <div class="podcast-header">
+          <h2 class="latest-heading">
+            <span class="section-heading-paren">(</span>
+            <span class="latest-heading-label">
+              <i class="bi bi-mic-fill latest-heading-icon" aria-hidden="true"></i>
+              Podcast
+            </span>
+            <span class="section-heading-paren">)</span>
+          </h2>
+          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#">
+            <span>Ver podcast</span>
+            <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="podcast-list">
+          @for (item of podcastEpisodes; track item.episode) {
+            <article class="podcast-card">
+              <div class="podcast-card-content">
+                <div class="podcast-card-top">
+                  <div class="podcast-episode-wrap">
+                    <i class="bi bi-mic-fill podcast-title-icon" aria-hidden="true"></i>
+                    <div class="podcast-episode">{{ item.episode }}</div>
+                  </div>
+                </div>
+
+                <h3 class="podcast-card-title">{{ item.title }}</h3>
+              </div>
+
+              <div class="podcast-audio-stack">
+                <button
+                  class="podcast-audio-indicator"
+                  type="button"
+                  (click)="togglePodcastPreview(item)"
+                  [attr.aria-label]="'Previsualizar reproducción de ' + item.title"
+                >
+                  <i class="bi bi-play-circle-fill podcast-audio-icon"></i>
+                </button>
+
+                <div class="podcast-audio-detail" aria-hidden="true">
+                  <span class="podcast-audio-start">0 min</span>
+                  <span class="podcast-audio-line"></span>
+                  <span class="podcast-audio-duration">{{ item.duration }}</span>
+                </div>
+              </div>
+
+              <div class="podcast-card-meta">
+                <div class="universal-badge podcast-season-badge">{{ item.season }}</div>
+                <div class="podcast-card-date">{{ item.date }}</div>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="articles-section" id="articulos">
+    <div class="articles-shell section-shell">
+      <div class="latest-rule section-rule"></div>
+
+      <div class="section-stack">
+        <div class="articles-header">
+          <h2 class="latest-heading">
+            <span class="section-heading-paren">(</span>
+            <span class="latest-heading-label">
+              <i class="bi bi-file-earmark-text-fill latest-heading-icon" aria-hidden="true"></i>
+              Artículos
+            </span>
+            <span class="section-heading-paren">)</span>
+          </h2>
+          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#">
+            <span>Ver artículos</span>
+            <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="articles-list">
+          @for (item of articleItems; track item.title) {
+            <article class="article-card">
+              <div class="article-card-content">
+                <div class="article-card-head">
+                  <div class="article-card-image-wrap">
+                    <img class="article-card-image" [src]="item.imageSrc" [alt]="item.imageAlt" loading="lazy" />
+                    <div class="article-card-tag">
+                      <div class="article-card-tag-text">{{ item.category }}</div>
+                    </div>
+                    <div class="article-card-gradient"></div>
+                  </div>
+
+                  <div class="article-card-infos">
+                    <div class="article-card-date">{{ item.date }}</div>
+                    <h3 class="article-card-title">{{ item.title }}</h3>
+                  </div>
+                </div>
+
+                <div class="article-card-line"></div>
+
+                @if (item.description) {
+                  <p class="article-card-description">{{ truncateText(item.description) }}</p>
+                }
+
+                @if (item.author) {
+                  <p class="article-card-author">{{ item.author }}</p>
+                }
+
+                <div class="article-card-read-bottom">
+                  <div class="article-card-read-link">{{ item.cta }}</div>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-section" id="nosotros">
+    <div class="quote-shell section-shell">
+      <div class="section-rule"></div>
+
+      <div class="section-stack">
+        <div class="testimonial-component">
+          <div class="testimonial-image-wrap">
+            <img
+              class="testimonial-image"
+              src="/150.jpg"
+              alt="Woman in white shirt and dark sweater reading a document at a white desk with glasses and a pink pen nearby."
+              loading="lazy"
+            />
+
+            <div class="universal-badge testimonial-image-badge">Konrad Adenauer (1876-1967)</div>
+          </div>
+
+          <div class="testimonial-content">
+            <div class="testimonial-content-inner">
+              <blockquote class="testimonial-blockquote">
+                “Para nosotros la persona está en el centro de atención con su dignidad
+                inconfundible, sus derechos y obligaciones. La persona forma el punto de partida
+                para la justicia social, la democracia en libertad y una economía sostenible.”
+              </blockquote>
+
+              <div class="testimonial-author-infos">
+                <a
+                  class="testimonial-author-logo-wrap"
+                  href="https://www.kas.de/es/home"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Abrir sitio de la Fundación Konrad Adenauer"
+                >
+                  <img
+                    class="testimonial-author-logo"
+                    src="/logo_de_konrad.svg"
+                    alt="Logo de Konrad"
+                    loading="lazy"
+                  />
+                </a>
+
+                <div class="testimonial-author-wrap">
+                  <div class="testimonial-author">Fundación Konrad Adenauer</div>
+                  <div class="testimonial-title">
+                    150 años de compromiso con la libertad, la justicia y la solidaridad.
+                  </div>
                 </div>
               </div>
             </div>
@@ -171,210 +452,92 @@
     </div>
   </section>
 
-  <section class="video-section">
-    <div class="video-shell">
-      <div class="latest-rule"></div>
+  <footer class="site-footer" id="newsletter">
+    <div class="site-footer-shell section-shell">
+      <div class="section-rule"></div>
 
-      <div class="video-header">
-        <h2 class="latest-heading">(Video)</h2>
-        <a class="universal-button" href="#">
-          <span>Ver video</span>
-          <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
-        </a>
-      </div>
+      <div class="section-stack">
+        <div class="site-footer-top">
+          <div class="site-footer-left">
+            <div class="site-footer-kicker">FOOTER</div>
+            <h2 class="site-footer-editorial-text">
+              Ideas que conectan democracia, liderazgo y futuro para Centroamérica.
+            </h2>
 
-      <div class="video-grid">
-        @for (item of videoItems; track item.title) {
-          <article
-            class="video-card"
-            [class.is-featured]="item.featured"
-          >
-            <div class="video-card-media">
-              <img class="video-card-thumbnail" [src]="item.thumbnail" [alt]="item.title" loading="lazy" />
-
-              <iframe
-                class="video-card-embed"
-                [src]="item.embedUrl"
-                [title]="item.title"
-                loading="lazy"
-                allow="autoplay; encrypted-media; picture-in-picture"
-                referrerpolicy="strict-origin-when-cross-origin"
-              ></iframe>
-
-              <div class="video-card-tint"></div>
-
-              <div class="video-card-badge universal-badge">{{ item.badge }}</div>
-
-              <div class="video-card-play" aria-hidden="true">
-                <i class="bi bi-play-circle video-card-play-icon"></i>
-              </div>
-
-              <div class="video-card-content universal-badge">
-                <p class="video-card-date">{{ item.date }}</p>
-                <h3 class="video-card-title">{{ item.title }}</h3>
-              </div>
-            </div>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="articles-section">
-    <div class="articles-shell">
-      <div class="latest-rule"></div>
-
-      <div class="articles-header">
-        <h2 class="latest-heading">(Artículos)</h2>
-        <a class="universal-button" href="#">
-          <span>Ver artículos</span>
-          <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
-        </a>
-      </div>
-
-      <div class="articles-list">
-        @for (item of articleItems; track item.title) {
-          <article class="article-card">
-            <div class="article-card-content">
-              <div class="article-card-head">
-                <div class="article-card-image-wrap">
-                  <img class="article-card-image" [src]="item.imageSrc" [alt]="item.imageAlt" loading="lazy" />
-                  <div class="article-card-tag">
-                    <div class="article-card-tag-text">{{ item.category }}</div>
-                  </div>
-                  <div class="article-card-gradient"></div>
+            <div class="site-footer-newsletter">
+              <div class="site-footer-newsletter-kicker">NEWSLETTER</div>
+              <form class="site-footer-newsletter-form" action="#" method="get">
+                <div class="site-footer-newsletter-row">
+                  <input
+                    id="footer-newsletter-email"
+                    class="site-footer-newsletter-input"
+                    type="email"
+                    placeholder="Correo electrónico"
+                    autocomplete="email"
+                  />
+                  <button class="site-footer-newsletter-button" type="submit">Suscribirme</button>
                 </div>
+              </form>
 
-                <div class="article-card-infos">
-                  <div class="article-card-date">{{ item.date }}</div>
-                  <h3 class="article-card-title">{{ item.title }}</h3>
+              <div class="site-footer-social-row">
+                <div class="site-footer-label">Redes</div>
+                <div class="site-footer-social-icons">
+                  @for (social of footerSocialLinks; track social.label) {
+                    <a
+                      class="site-footer-social-icon"
+                      [href]="social.href"
+                      target="_blank"
+                      rel="noreferrer"
+                      [attr.aria-label]="social.label"
+                    >
+                      <i [class]="social.iconClass" aria-hidden="true"></i>
+                    </a>
+                  }
                 </div>
               </div>
 
-              <div class="article-card-line"></div>
-
-              @if (item.description) {
-                <p class="article-card-description">{{ truncateText(item.description) }}</p>
-              }
-
-              @if (item.author) {
-                <p class="article-card-author">{{ item.author }}</p>
-              }
-
-              <div class="article-card-read-bottom">
-                <div class="article-card-read-link">{{ item.cta }}</div>
-              </div>
+              <p class="site-footer-meta">
+                © 2026 PolitiKAS • Fundación Konrad Adenauer • Mock interactivo para la demo
+              </p>
             </div>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
+          </div>
 
-  <section class="podcast-section">
-    <div class="podcast-shell">
-      <div class="latest-rule"></div>
-
-      <div class="podcast-header">
-        <h2 class="latest-heading">(Podcast)</h2>
-        <a class="universal-button" href="#">
-          <span>Ver podcast</span>
-          <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
-        </a>
-      </div>
-
-      <div class="podcast-list">
-        @for (item of podcastEpisodes; track item.episode) {
-          <article class="podcast-card">
-            <div class="podcast-card-content">
-              <div class="podcast-card-top">
-                <div class="podcast-episode-wrap">
-                  <i class="bi bi-mic-fill podcast-title-icon" aria-hidden="true"></i>
-                  <div class="podcast-episode">{{ item.episode }}</div>
-                </div>
-              </div>
-
-              <h3 class="podcast-card-title">{{ item.title }}</h3>
-            </div>
-
-            <div class="podcast-audio-stack">
-              <button
-                class="podcast-audio-indicator"
-                type="button"
-                (click)="togglePodcastPreview(item)"
-                [attr.aria-label]="'Previsualizar reproducción de ' + item.title"
-              >
-                <i class="bi bi-play-circle-fill podcast-audio-icon"></i>
-              </button>
-
-              <div class="podcast-audio-detail" aria-hidden="true">
-                <span class="podcast-audio-start">0 min</span>
-                <span class="podcast-audio-line"></span>
-                <span class="podcast-audio-duration">{{ item.duration }}</span>
+          <div class="site-footer-right">
+            <div class="site-footer-col">
+              <div class="site-footer-label">Contenido</div>
+              <div class="site-footer-links">
+                @for (link of footerPrimaryLinks; track link.label) {
+                  <a class="site-footer-link" [href]="link.href">{{ link.label }}</a>
+                }
               </div>
             </div>
 
-            <div class="podcast-card-meta">
-              <div class="universal-badge podcast-season-badge">{{ item.season }}</div>
-              <div class="podcast-card-date">{{ item.date }}</div>
+            <div class="site-footer-col">
+              <div class="site-footer-label">Temas</div>
+              <div class="site-footer-links">
+                @for (link of footerTopicLinks; track link.label) {
+                  <a class="site-footer-link" [href]="link.href">{{ link.label }}</a>
+                }
+              </div>
             </div>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
 
-  <section class="services-section">
-    <div class="services-shell">
-      <div class="services-bg-wrapper" aria-hidden="true">
-        <div class="services-bg-image-wrap is-active">
-          <img
-            class="services-image"
-            [src]="serviceItems[0].imageSrc"
-            [alt]="serviceItems[0].imageAlt"
-            loading="lazy"
-          />
-        </div>
-      </div>
-
-      <div class="services-content">
-        <div class="services-head">
-          <div class="services-kicker">NUESTROS EJES</div>
-          <h2 class="services-title">Tres pilares que fortalecen la democracia en la región</h2>
-        </div>
-
-        <div class="services-layout">
-          <div class="services-block">
-            <div class="services-marquee-wrap" #servicesMarqueeViewport aria-hidden="true">
-              <div
-                class="services-marquee-track"
-                [style.transform]="'translate3d(0, -' + serviceMarqueeTranslateY() + 'px, 0)'"
-              >
-                @for (item of renderedServiceItems; track item.loopKey) {
-                  <div
-                    class="services-item"
-                    [class.is-active]="activeRenderedServiceIndex() === item.renderedIndex"
-                  >
-                    {{ item.title }}
-                  </div>
+            <div class="site-footer-col">
+              <div class="site-footer-label">Institucional</div>
+              <div class="site-footer-links">
+                @for (link of footerInstitutionalLinks; track link.label) {
+                  <a class="site-footer-link" [href]="link.href">{{ link.label }}</a>
                 }
               </div>
             </div>
           </div>
+        </div>
 
-          <a
-            class="universal-button services-button"
-            href="https://politikasenlinea.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span>Sobre Nosotros</span>
-            <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
-          </a>
+        <div class="site-footer-bottom">
+          <img class="site-footer-logo" src="/footer.svg" alt="PolitiKAS logo" />
         </div>
       </div>
     </div>
-  </section>
+  </footer>
 
   <div class="podcast-player-shell" [class.is-visible]="activePodcastEpisode()">
     @if (activePodcastEpisode(); as activeEpisode) {
