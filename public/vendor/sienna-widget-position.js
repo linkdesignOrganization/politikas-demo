@@ -5,6 +5,7 @@
   const OFFSET_Y = 16;
   const GAP = 8;
   const BUTTON_Z_INDEX = 2500;
+  const BUTTON_SIZE = 46;
 
   let frameId = 0;
 
@@ -27,6 +28,10 @@
     button.style.left = 'auto';
     button.style.bottom = 'auto';
     button.style.zIndex = `${BUTTON_Z_INDEX}`;
+    button.style.width = `${BUTTON_SIZE}px`;
+    button.style.height = `${BUTTON_SIZE}px`;
+    button.style.minWidth = `${BUTTON_SIZE}px`;
+    button.style.minHeight = `${BUTTON_SIZE}px`;
   }
 
   function schedulePosition() {

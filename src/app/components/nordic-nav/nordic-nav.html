@@ -10,10 +10,12 @@
           aria-controls="nordic-nav-menu"
           aria-label="Open navigation menu"
         >
-          <span class="nordic-nav__hamburger" [class.is-open]="isMenuOpen()">
-            <span class="nordic-nav__hamburger-line"></span>
-            <span class="nordic-nav__hamburger-line"></span>
-          </span>
+          <i
+            class="nordic-nav__toggle-icon"
+            [class.bi-list]="!isMenuOpen()"
+            [class.bi-x-lg]="isMenuOpen()"
+            aria-hidden="true"
+          ></i>
         </button>
 
         <div class="nordic-nav__links-wrap">

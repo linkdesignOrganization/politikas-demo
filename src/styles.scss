@@ -41,7 +41,7 @@ body.nav-menu-open {
 app-nordic-nav {
   position: absolute;
   inset: 0 0 auto;
-  z-index: 1200;
+  z-index: 5000;
   display: block;
   pointer-events: none;
 }
@@ -92,31 +92,11 @@ app-nordic-nav {
   cursor: pointer;
 }
 
-.nordic-nav__hamburger {
-  position: relative;
+.nordic-nav__toggle-icon {
   display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.33rem;
-  width: 1.1rem;
-  height: 1rem;
-}
-
-.nordic-nav__hamburger-line {
-  display: block;
-  width: 100%;
-  height: 1.5px;
-  border-radius: 999px;
   background: #004682;
-  transition: transform 220ms ease, opacity 220ms ease;
-}
-
-.nordic-nav__hamburger.is-open .nordic-nav__hamburger-line:first-child {
-  transform: translateY(0.24rem) rotate(45deg);
-}
-
-.nordic-nav__hamburger.is-open .nordic-nav__hamburger-line:last-child {
-  transform: translateY(-0.24rem) rotate(-45deg);
+  font-size: 1.35rem;
+  line-height: 1;
 }
 
 .nordic-nav__links-wrap {
@@ -376,6 +356,8 @@ app-nordic-nav {
 
 .nordic-nav__overlay {
   pointer-events: none;
+  position: relative;
+  z-index: 5001;
 }
 
 .nordic-nav__overlay.is-open {
@@ -385,6 +367,7 @@ app-nordic-nav {
 .nordic-nav__backdrop {
   position: fixed;
   inset: 0;
+  z-index: 5001;
   border: 0;
   background: rgba(18, 18, 18, 0.26);
   opacity: 0;
@@ -398,6 +381,7 @@ app-nordic-nav {
 .nordic-nav__menu {
   position: fixed;
   inset: 0;
+  z-index: 5002;
   padding: 0.75rem;
   opacity: 0;
   visibility: hidden;
@@ -2040,7 +2024,7 @@ a {
   row-gap: 0.8rem;
   column-gap: 1.5rem;
   width: min(78rem, 100%);
-  padding: 1rem 1.25rem;
+  padding: 1rem 1.25rem 1rem 4.2rem;
   border-radius: 0.75rem;
   background: rgba(0, 70, 130, 0.86);
   box-shadow: 0 18px 50px rgba(18, 18, 18, 0.26);
@@ -2054,19 +2038,26 @@ a {
 .podcast-player-close {
   position: absolute;
   top: 0.85rem;
-  right: 0.85rem;
+  left: 1rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.3rem;
+  height: 2.3rem;
   padding: 0;
   border: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  background: #00b9be;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(18, 18, 18, 0.18);
   cursor: pointer;
   z-index: 2;
   pointer-events: auto;
+}
+
+.podcast-player-close:hover,
+.podcast-player-close:focus-visible {
+  background: #009fa3;
 }
 
 .podcast-player-shell.is-visible .podcast-player-panel {
@@ -2296,7 +2287,7 @@ a {
   .podcast-player-panel {
     grid-template-columns: 1fr;
     gap: 1rem;
-    padding-top: 2.25rem;
+    padding: 3.25rem 1rem 1rem 1rem;
   }
 
   .podcast-player-progress {
@@ -2355,6 +2346,6 @@ a {
   }
 
   .podcast-player-panel {
-    padding: 0.9rem 1rem;
+    padding: 3.1rem 1rem 0.9rem 1rem;
   }
 }
