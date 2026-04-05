@@ -22,6 +22,7 @@
             data-popover="No disponible en la demo"
             href="#formatos"
             aria-label="Explorar temporada"
+            (click)="trackCTA('Explorar temporada')"
           >
             <span>Explorar temporada</span>
             <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
@@ -44,6 +45,7 @@
             type="button"
             data-popover="No disponible en la demo"
             aria-label="No disponible en la demo"
+            (click)="trackVideoPreview(heroFeaturedVideo.title)"
           >
             <span class="video-card-play">
               <i class="bi bi-play-circle video-card-play-icon" aria-hidden="true"></i>
@@ -194,16 +196,15 @@
               </div>
             </div>
 
-            <a
+            <button
               class="universal-button services-button demo-popover"
               data-popover="No disponible en la demo"
-              href="https://politikasenlinea.com/"
-              target="_blank"
-              rel="noreferrer"
+              type="button"
+              (click)="trackCTA('Sobre Nosotros')"
             >
               <span>Sobre Nosotros</span>
               <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -224,7 +225,7 @@
             </span>
             <span class="section-heading-paren">)</span>
           </h2>
-          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#">
+          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#" (click)="trackCTA('Ver video', $event)">
             <span>Ver video</span>
             <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
           </a>
@@ -241,6 +242,7 @@
                 type="button"
                 data-popover="No disponible en la demo"
                 aria-label="No disponible en la demo"
+                (click)="trackVideoPreview(item.title)"
               >
                 <span class="video-card-play">
                   <i class="bi bi-play-circle video-card-play-icon" aria-hidden="true"></i>
@@ -289,7 +291,7 @@
             </span>
             <span class="section-heading-paren">)</span>
           </h2>
-          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#">
+          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#" (click)="trackCTA('Ver podcast', $event)">
             <span>Ver podcast</span>
             <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
           </a>
@@ -351,7 +353,7 @@
             </span>
             <span class="section-heading-paren">)</span>
           </h2>
-          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#">
+          <a class="universal-button demo-popover" data-popover="No disponible en la demo" href="#" (click)="trackCTA('Ver artículos', $event)">
             <span>Ver artículos</span>
             <i class="bi bi-arrow-right-short universal-button-icon" aria-hidden="true"></i>
           </a>
@@ -507,7 +509,7 @@
               <div class="site-footer-label">Contenido</div>
               <div class="site-footer-links">
                 @for (link of footerPrimaryLinks; track link.label) {
-                  <a class="site-footer-link" [href]="link.href">{{ link.label }}</a>
+                  <a class="site-footer-link" [href]="link.href" (click)="trackCTA(link.label)">{{ link.label }}</a>
                 }
               </div>
             </div>
@@ -516,7 +518,7 @@
               <div class="site-footer-label">Temas</div>
               <div class="site-footer-links">
                 @for (link of footerTopicLinks; track link.label) {
-                  <a class="site-footer-link" [href]="link.href">{{ link.label }}</a>
+                  <a class="site-footer-link" [href]="link.href" (click)="trackCTA(link.label)">{{ link.label }}</a>
                 }
               </div>
             </div>
@@ -525,7 +527,7 @@
               <div class="site-footer-label">Institucional</div>
               <div class="site-footer-links">
                 @for (link of footerInstitutionalLinks; track link.label) {
-                  <a class="site-footer-link" [href]="link.href">{{ link.label }}</a>
+                  <a class="site-footer-link" [href]="link.href" (click)="trackCTA(link.label)">{{ link.label }}</a>
                 }
               </div>
             </div>

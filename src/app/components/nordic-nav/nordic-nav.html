@@ -19,9 +19,11 @@
         <div class="nordic-nav__links-wrap">
           @for (link of navLinks; track link.label) {
             <a
-              class="nordic-nav__link"
+              class="nordic-nav__link nav-popover"
+              [class.demo-popover]="link.label === 'Temas' || link.label === 'Nosotros'"
+              [attr.data-popover]="link.label === 'Temas' || link.label === 'Nosotros' ? 'No disponible en la demo' : null"
               [href]="link.path"
-              (click)="handleInternalNavigation($event)"
+              (click)="handleInternalNavigation($event, link.label)"
             >
               <span class="nordic-nav__link-texts">
                 <span class="nordic-nav__link-text">{{ link.label }}</span>
@@ -36,12 +38,12 @@
         </div>
       </div>
 
-      <a class="nordic-nav__logo" href="/" (click)="handleInternalNavigation($event)" aria-label="PolitiKAS home">
+      <a class="nordic-nav__logo" href="/" (click)="handleInternalNavigation($event, 'Ir al inicio')" aria-label="PolitiKAS home">
         <img src="/logo-color.svg" alt="PolitiKAS logo" />
       </a>
 
       <div class="nordic-nav__contact">
-        <a class="nordic-nav__brand-mark" href="/" (click)="handleInternalNavigation($event)" aria-label="Konrad Adenauer">
+        <a class="nordic-nav__brand-mark" href="/" (click)="handleInternalNavigation($event, 'Konrad Adenauer')" aria-label="Konrad Adenauer">
           <img src="/logo_de_konrad.svg" alt="Fundación Konrad Adenauer" />
         </a>
 
@@ -49,7 +51,7 @@
           class="nordic-nav__cta demo-popover nav-popover"
           data-popover="No disponible en la demo"
           href="/contact/2"
-          (click)="handleInternalNavigation($event)"
+          (click)="handleInternalNavigation($event, 'Contacto')"
         >
           <span class="nordic-nav__cta-texts">
             <span class="nordic-nav__cta-text">Contacto</span>
@@ -67,14 +69,14 @@
     <div class="nordic-nav__menu" id="nordic-nav-menu" [class.is-open]="isMenuOpen()">
       <div class="nordic-nav__menu-items">
         <div class="nordic-nav__menu-links">
-          <a class="nordic-nav__menu-logo" href="/" (click)="handleInternalNavigation($event)">
+          <a class="nordic-nav__menu-logo" href="/" (click)="handleInternalNavigation($event, 'Ir al inicio')">
             <img src="/logo-color.svg" alt="PolitiKAS logo" />
           </a>
 
           <div class="nordic-nav__menu-col nordic-nav__menu-col--links">
             <div class="nordic-nav__menu-links-wrap">
               @for (link of navLinks; track 'menu-' + link.label) {
-                <a class="nordic-nav__menu-link" [href]="link.path" (click)="handleInternalNavigation($event)">
+                <a class="nordic-nav__menu-link" [href]="link.path" (click)="handleInternalNavigation($event, link.label)">
                   <span class="nordic-nav__menu-link-texts">
                     <span class="nordic-nav__menu-link-text">{{ link.label }}</span>
                     <span class="nordic-nav__menu-link-text">{{ link.label }}</span>
@@ -105,7 +107,7 @@
           <div class="nordic-nav__menu-label">Categorías</div>
           <div class="nordic-nav__cases">
             @for (item of menuCategories; track item.title) {
-              <a class="nordic-nav__case" [href]="item.href" (click)="handleInternalNavigation($event)">
+              <a class="nordic-nav__case" [href]="item.href" (click)="handleInternalNavigation($event, item.title)">
                 <div class="nordic-nav__case-image-wrap">
                   <img class="nordic-nav__case-image" [src]="item.imageSrc" [alt]="item.title" loading="lazy" />
                 </div>
@@ -125,7 +127,7 @@
             <p class="nordic-nav__campus-text">
               Formación en democracia, liderazgo y política pública. Cursos virtuales de la Fundación Konrad Adenauer.
             </p>
-            <a class="nordic-nav__campus-link" href="#campus" (click)="handleInternalNavigation($event)">
+            <a class="nordic-nav__campus-link" href="#campus" (click)="handleInternalNavigation($event, 'Visitá el Campus')">
               <span>Visitá el Campus</span>
               <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
             </a>

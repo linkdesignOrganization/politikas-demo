@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, DestroyRef, HostListener, inject, signal } from '@angular/core';
+import { CrmTrackingService } from '../../services/crm-tracking.service';
 
 type NavLink = {
   label: string;
@@ -46,6 +47,7 @@ type MenuTopicGroup = {
 export class NordicNavComponent {
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly tracking = inject(CrmTrackingService);
   private blogAutoplayIntervalId: number | null = null;
 
   protected readonly isMenuOpen = signal(false);
@@ -160,6 +162,7 @@ export class NordicNavComponent {
     if (this.isMenuOpen()) {
       this.closeMenu();
     } else {
+      this.tracking.trackCTA('Abrir menu');
       this.openMenu();
     }
   }
@@ -176,12 +179,22 @@ export class NordicNavComponent {
     this.unlockBodyScroll();
   }
 
-  protected handleInternalNavigation(event: Event): void {
+  protected handleInternalNavigation(event: Event, label?: string): void {
     event.preventDefault();
     const target = event.currentTarget as HTMLAnchorElement | null;
     const href = target?.getAttribute('href') ?? '';
+    const win = this.document.defaultView;
+
+    if (label) {
+      this.tracking.trackCTA(label);
+    }
 
     this.closeMenu();
+
+    if (href === '/') {
+      this.lastScrollToTop(win);
+      return;
+    }
 
     if (!href.startsWith('#')) {
       return;
@@ -194,8 +207,25 @@ export class NordicNavComponent {
     }
 
     requestAnimationFrame(() => {
+      if (win && win.location.hash !== href) {
+        win.location.hash = href;
+        return;
+      }
+
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+  }
+
+  private lastScrollToTop(win: Window | null): void {
+    if (!win) {
+      return;
+    }
+
+    if (win.location.pathname !== '/') {
+      win.history.pushState({}, '', '/');
+    }
+
+    win.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   protected showArticle(index: number): void {

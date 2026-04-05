@@ -8,6 +8,7 @@ import {
   signal
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CrmTrackingService } from '../../services/crm-tracking.service';
 
 type ApproachItem = {
   number: string;
@@ -86,6 +87,7 @@ export class HomePageComponent implements AfterViewInit {
 
   private readonly destroyRef = inject(DestroyRef);
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly tracking = inject(CrmTrackingService);
   private playbackIntervalId: number | null = null;
   private serviceAnimationFrameId: number | null = null;
   private serviceLastFrameTime = 0;
@@ -370,13 +372,27 @@ export class HomePageComponent implements AfterViewInit {
     }
 
     if (video.paused) {
+      this.tracking.trackCustom('format-video-toggle', { state: 'play' });
       void video.play();
       this.isApproachVideoPaused.set(false);
       return;
     }
 
+    this.tracking.trackCustom('format-video-toggle', { state: 'pause' });
     video.pause();
     this.isApproachVideoPaused.set(true);
+  }
+
+  protected trackCTA(label: string, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
+
+    this.tracking.trackCTA(label);
+  }
+
+  protected trackVideoPreview(title: string): void {
+    this.tracking.trackCustom('video-play', { title });
   }
 
   protected truncateText(text: string | undefined, maxLength = 150): string {
@@ -399,6 +415,10 @@ export class HomePageComponent implements AfterViewInit {
       return;
     }
 
+    this.tracking.trackCustom('podcast-play', {
+      episode: episode.episode,
+      title: episode.title
+    });
     this.activePodcastEpisode.set(episode);
     this.podcastPlaybackPosition.set(0);
     this.isPodcastPlaying.set(true);
@@ -418,6 +438,9 @@ export class HomePageComponent implements AfterViewInit {
     }
 
     const nextPlaying = !this.isPodcastPlaying();
+    this.tracking.trackCustom('podcast-playback-toggle', {
+      state: nextPlaying ? 'play' : 'pause'
+    });
     this.isPodcastPlaying.set(nextPlaying);
 
     if (nextPlaying) {

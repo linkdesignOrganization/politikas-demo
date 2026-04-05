@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -30,6 +31,7 @@ body {
   background: var(--page-bg);
   color: var(--ink);
   font-family: var(--font-body);
+  overflow-x: clip;
 }
 
 body.nav-menu-open {

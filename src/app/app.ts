@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { NordicNavComponent } from './components/nordic-nav/nordic-nav';
-import { HomePageComponent } from './pages/home-page/home-page';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [NordicNavComponent, HomePageComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
