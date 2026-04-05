@@ -16,6 +16,8 @@ type TrackingPayload = {
   events: TrackingEvent[];
 };
 
+type FlushMode = 'batch' | 'unload';
+
 @Injectable({ providedIn: 'root' })
 export class CrmTrackingService {
   private static readonly BATCH_INTERVAL_MS = 10_000;
@@ -170,7 +172,7 @@ export class CrmTrackingService {
     this.document.addEventListener('visibilitychange', () => {
       if (this.document.hidden) {
         this.stopHeartbeat();
-        this.flush();
+        this.flush('unload');
         return;
       }
 
@@ -187,7 +189,7 @@ export class CrmTrackingService {
     }
 
     win.addEventListener('beforeunload', () => {
-      this.flush();
+      this.flush('unload');
     });
   }
 
@@ -197,7 +199,7 @@ export class CrmTrackingService {
     }
 
     this.batchIntervalId = window.setInterval(() => {
-      this.flush();
+      this.flush('batch');
     }, CrmTrackingService.BATCH_INTERVAL_MS);
   }
 
@@ -245,7 +247,7 @@ export class CrmTrackingService {
     });
   }
 
-  private flush(): void {
+  private flush(mode: FlushMode): void {
     if (!this.queuedEvents.length) {
       return;
     }
@@ -258,9 +260,7 @@ export class CrmTrackingService {
     const body = JSON.stringify(payload);
 
     try {
-      const beaconSent = this.sendWithBeacon(body);
-
-      if (beaconSent) {
+      if (mode === 'unload' && this.sendWithBeacon(body)) {
         return;
       }
 
