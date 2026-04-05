@@ -137,6 +137,7 @@
 }
 
 .hero-video-card {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
@@ -158,11 +159,14 @@
   bottom: 1rem;
 }
 
-.hero-video-card .video-card-badge {
+.hero-video-card-badge {
+  position: absolute;
   top: auto;
-  left: 1rem;
   right: auto;
-  bottom: calc(1rem + 5.35rem);
+  left: 1rem;
+  bottom: calc(1rem + 6.35rem);
+  z-index: 4;
+  width: fit-content;
 }
 
 .hero-video-card .video-card-embed {
@@ -170,7 +174,7 @@
 }
 
 .hero-video-card .video-card-title {
-  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  font-size: clamp(1.2rem, 1.65vw, 1.6rem);
   line-height: 1.08;
 }
 
